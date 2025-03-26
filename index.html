@@ -6,6 +6,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Rubik:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="preload" href="NotoKufiArabic-VariableFont_wght.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+  <link rel="preload" href="./fonts/DINNextLTArabic-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
   <title>Customizable Greeting Cards</title>
   <style>
     /* Custom Font */
@@ -19,7 +21,6 @@
       margin: 0;
       padding-top: 88px; /* Match the height of the fixed header */
       font-family: 'NotoKufiArabic-VariableFont_wght.ttf', sans-serif;
-      background: url('SAMI AEC  - Background 3.jpg') no-repeat center center fixed;
       background-image: linear-gradient(90deg, #3C8BFF 1%, #5E46FF 100%);
       
       ;
@@ -141,11 +142,11 @@
   }
 
   .name-text {
-    font-size: 0.7rem; /* Slightly smaller font size for name */
+    font-size: 0.9rem; /* Slightly smaller font size for name */
   }
 
   .menu-button {
-    font-size: 0.7rem; /* Slightly smaller button text */
+    font-size: 0.9rem; /* Slightly smaller button text */
   }
 
   .dropdown-menu {
@@ -1132,32 +1133,34 @@ document.addEventListener('click', (e) => {
   const arabicName = arabicNameInput.value.trim();
   const arabicPosition = arabicPositionInput.value.trim();
 
-  const img = new Image();
-  img.src = selectedCard;
+  document.fonts.ready.then(() => {
+    const img = new Image();
+    img.src = selectedCard;
 
-  img.onload = () => {
-    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    img.onload = () => {
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-    // English Name
-    ctx.font = 'bold 40px DIN Next LT Arabic';
-    ctx.fillStyle = '#ffffff';
-    ctx.textAlign = 'left';
-    ctx.fillText(englishName, 50, canvas.height - 140); // Further adjustment (-160 -> -140)
+      // English Name
+      ctx.font = 'bold 40px "DIN Next LT Arabic"';
+      ctx.fillStyle = '#ffffff';
+      ctx.textAlign = 'left';
+      ctx.fillText(englishName, 50, canvas.height - 140);
 
-    // English Position
-    ctx.font = 'normal 30px DIN Next LT Arabic';
-    ctx.fillText(englishPosition, 50, canvas.height - 90); // Further adjustment (-110 -> -90)
+      // English Position
+      ctx.font = 'normal 30px "DIN Next LT Arabic"';
+      ctx.fillText(englishPosition, 50, canvas.height - 90);
 
-    // Arabic Name
-    ctx.font = 'bold 40px DIN Next LT Arabic';
-    ctx.textAlign = 'right';
-    ctx.direction = 'rtl';
-    ctx.fillText(arabicName, canvas.width - 50, canvas.height - 140); // Further adjustment (-160 -> -140)
+      // Arabic Name
+      ctx.font = 'bold 40px "DIN Next LT Arabic"';
+      ctx.textAlign = 'right';
+      ctx.direction = 'rtl';
+      ctx.fillText(arabicName, canvas.width - 50, canvas.height - 140);
 
-    // Arabic Position
-    ctx.font = 'normal 30px DIN Next LT Arabic';
-    ctx.fillText(arabicPosition, canvas.width - 50, canvas.height - 90); // Further adjustment (-110 -> -90)
-  };
+      // Arabic Position
+      ctx.font = 'normal 30px "DIN Next LT Arabic"';
+      ctx.fillText(arabicPosition, canvas.width - 50, canvas.height - 90);
+    };
+  });
 }
 
     englishNameInput.addEventListener('input', loadCard);
